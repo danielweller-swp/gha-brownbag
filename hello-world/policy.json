@@ -1,7 +1,7 @@
 {
   "bindings": [
     {
-      "role": "roles/cloudfunctions.viewer",
+      "role": "roles/cloudfunctions.invoker",
       "members": [
         "user:daniel.weller@softwarepark.cc",
         "user:balazs.molnar@softwarepark.cc"
