@@ -41,3 +41,33 @@ jobs:
           gcloud functions set-iam-policy
           gha-sandbox-hello-world
           policy.json
+
+  test-only:
+    name: Only test the function with the composite action
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v1
+
+      - uses: ./.github/actions/deploy-node-gcf
+        with:
+          lint: false
+          deploy: false
+
+  deploy-with-action:
+    needs: [deploy] # We don't want to deploy the same function twice in parallel
+    name: Deploy the function with the composite action
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v1
+
+      - uses: ./.github/actions/deploy-node-gcf
+        with:
+          entry-point: helloWorld
+          name: gha-sandbox-hello-world
+          env-vars: MESSAGE="${{ secrets.HELLO_WORLD_MESSAGE }}"
