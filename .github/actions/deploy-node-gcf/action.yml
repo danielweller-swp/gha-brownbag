@@ -16,10 +16,12 @@ inputs:
     description: 'Deploy the function?'
     required: false
     default: true
-  entry-point: 'Entry point of the function'
+  entry-point:
+    description: 'Entry point of the function'
     required: false
     default: ""
-  name: 'Name of the cloud function'
+  name:
+    description: 'Name of the cloud function'
     required: false
     default: ""
   env-vars:
