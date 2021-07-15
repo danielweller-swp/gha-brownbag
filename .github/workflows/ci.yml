@@ -1,0 +1,36 @@
+name: CI/CD
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  deploy:
+    defaults:
+      run:
+        working-directory: hello-world
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v1
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.SOFTWAREPARK_SANDBOX_SERVICE_ACCOUNT }}
+          project_id: softwarepark-sandbox
+          export_default_credentials: true
+
+      - run: >-
+          gcloud functions deploy
+          gha-sandbox-hello-world
+          --trigger-http
+          --runtime=nodejs12
+          --entry-point helloWorld
+          --set-env-vars=MESSAGE=${{ secrets.HELLO_WORLD_MESSAGE }}
