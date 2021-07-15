@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Your project has been tested LOL\"",
     "lint": "echo \"Your project has been linted LMAO\""
   },
   "author": "",
