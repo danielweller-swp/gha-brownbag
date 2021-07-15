@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "role": "roles/cloudfunctions.viewer",
+      "members": [
+        "user:daniel.weller@softwarepark.cc",
+        "user:balazs.molnar@softwarepark.cc"
+      ]
+    }
+  ],
+  "version": 3
+}

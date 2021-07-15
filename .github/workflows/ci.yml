@@ -27,10 +27,17 @@ jobs:
           project_id: softwarepark-sandbox
           export_default_credentials: true
 
-      - run: >-
+      - name: Deploy gha-sandbox-hello-world
+        run: >-
           gcloud functions deploy
           gha-sandbox-hello-world
           --trigger-http
           --runtime=nodejs12
           --entry-point helloWorld
-          --set-env-vars=MESSAGE=${{ secrets.HELLO_WORLD_MESSAGE }}
+          --set-env-vars=MESSAGE="${{ secrets.HELLO_WORLD_MESSAGE }}"
+
+      - name: Set policy for gha-sandbox-hello-world
+        run: >-
+          gcloud functions set-iam-policy
+          gha-sandbox-hello-world
+          policy.json
