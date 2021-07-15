@@ -9,7 +9,7 @@ jobs:
     defaults:
       run:
         working-directory: hello-world
-    name: Deploy
+    name: Deploy hello-world
     runs-on: ubuntu-latest
 
     steps:
@@ -72,6 +72,6 @@ jobs:
       
       - uses: actions/setup-node@v1
 
-      - uses: ./.github/actions/deploy-node-gcf
+      - uses: ./.github/actions/ci-node-gcf
         with:
           working-directory: hello-world
