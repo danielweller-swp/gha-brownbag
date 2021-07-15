@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  deploy:
+  deploy-hello-world:
     defaults:
       run:
         working-directory: hello-world
@@ -42,8 +42,29 @@ jobs:
           gha-sandbox-hello-world
           policy.json
 
-  test-only:
-    name: Only test the function with the composite action
+  ci-hello-world:
+    name: CI for hello-world
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hello-world
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v1
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm run test
+
+      - name: Lint
+        run: npm run lint
+
+  ci-hello-world-with-action:
+    name: CI for hello-world with the composite action
     runs-on: ubuntu-latest
 
     steps:
@@ -54,22 +75,3 @@ jobs:
       - uses: ./.github/actions/deploy-node-gcf
         with:
           working-directory: hello-world
-          lint: false
-          deploy: false
-
-  deploy-with-action:
-    needs: [deploy] # We don't want to deploy the same function twice in parallel
-    name: Deploy the function with the composite action
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      
-      - uses: actions/setup-node@v1
-
-      - uses: ./.github/actions/deploy-node-gcf
-        with:
-          working-directory: hello-world
-          entry-point: helloWorld
-          name: gha-sandbox-hello-world
-          env-vars: MESSAGE="${{ secrets.HELLO_WORLD_MESSAGE }}"

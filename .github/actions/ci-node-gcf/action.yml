@@ -1,0 +1,29 @@
+name: 'Deploy NodeJS Cloud Function'
+description: 'Test, Lint, and Deploy a NodeJS Cloud Function'
+inputs:
+  working-directory:
+    description: 'Directory of the cloud function'
+    required: true
+  test:
+    description: 'Run the tests?'
+    required: false
+    default: true
+  lint:
+    description: 'Lint the code?'
+    required: false
+    default: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install Dependencies
+      run: npm ci
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: Test
+      run: if [ "${{ inputs.test }}" == "true" ]; then npm run test; fi
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - name: Lint
+      run: if [ "${{ inputs.lint }}" == "true" ]; then npm run lint; fi
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
