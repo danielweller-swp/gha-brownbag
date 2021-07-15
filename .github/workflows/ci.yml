@@ -53,6 +53,7 @@ jobs:
 
       - uses: ./.github/actions/deploy-node-gcf
         with:
+          working-directory: hello-world
           lint: false
           deploy: false
 
@@ -68,6 +69,7 @@ jobs:
 
       - uses: ./.github/actions/deploy-node-gcf
         with:
+          working-directory: hello-world
           entry-point: helloWorld
           name: gha-sandbox-hello-world
           env-vars: MESSAGE="${{ secrets.HELLO_WORLD_MESSAGE }}"
