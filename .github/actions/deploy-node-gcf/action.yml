@@ -44,28 +44,28 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: Deploy Function
-      run: >-
+      run: |
         if [ "${{ inputs.env-vars }}" != "" ]
         then
           SET_ENV_VARS="--set-env-vars ${{ inputs.env-vars }}"
         fi
         if [ "${{ inputs.deploy }}" == "true" ]
         then
-          gcloud functions deploy
-          ${{ inputs.name }}
-          --trigger-http
-          --runtime=nodejs12
-          --entry-point ${{ inputs.entry-point }}
+          gcloud functions deploy \
+          ${{ inputs.name }} \
+          --trigger-http \
+          --runtime=nodejs12 \
+          --entry-point ${{ inputs.entry-point }} \
           $SET_ENV_VARS
         fi
       shell: bash
       working-directory: ${{ inputs.working-directory }}
     - name: Set policy
-      run: >-
+      run: |
         if [ "${{ inputs.deploy }}" == "true" ]
         then
-          gcloud functions set-iam-policy
-          ${{ inputs.name }}
+          gcloud functions set-iam-policy \
+          ${{ inputs.name }} \
           policy.json
         fi
       shell: bash
