@@ -72,3 +72,13 @@ Cons :x::
 Cons :x::
 - Loss of granularity in the logs
   ![step-granularity1](step-granularity1.png) vs ![step-granularity2](step-granularity2.png)
+
+---
+
+# Environments
+
+---
+
+# Environments
+
+![environments1](environments1.png)
