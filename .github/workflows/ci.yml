@@ -38,7 +38,7 @@ jobs:
           working-directory: hello-world
 
   deploy-hello-world-staging:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     environment: Staging
     env:
       ENVIRONMENT_PREFIX: staging
